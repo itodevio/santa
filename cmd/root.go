@@ -15,6 +15,13 @@ var rootCmd = &cobra.Command{
 	Use:   "santa",
 	Short: "Santa is an utility tool for Advent of Code problems",
 	Long:  "Santa is an utility tool for Advent of Code problems built with love by itodevio in Go",
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		err := viper.ReadInConfig()
+		if err != nil && cmd.Name() != "config" {
+			fmt.Println("No config file found. Run `santa config` to create one.")
+			os.Exit(0)
+		}
+	},
 }
 
 func Execute() {
@@ -45,6 +52,4 @@ func initConfig() {
 		viper.AddConfigPath(path.Join(home, ".santa"))
 		viper.AddConfigPath(path.Join(xdg.ConfigHome, "santa"))
 	}
-
-	viper.ReadInConfig()
 }

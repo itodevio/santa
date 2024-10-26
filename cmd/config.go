@@ -9,10 +9,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-func init() {
-	rootCmd.AddCommand(configCmd)
-}
-
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Set up config options to a local config file or globally",
@@ -57,6 +53,7 @@ func configRun(cmd *cobra.Command, args []string) {
 }
 
 func init() {
+	rootCmd.AddCommand(configCmd)
 	configCmd.Flags().String("token", "", "The session token found in the browser's network tab in the input page")
 	configCmd.MarkFlagRequired("token")
 	viper.BindPFlag("token", configCmd.Flags().Lookup("token"))
