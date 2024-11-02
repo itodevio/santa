@@ -54,7 +54,9 @@ func configRun(cmd *cobra.Command, args []string) {
 
 func init() {
 	rootCmd.AddCommand(configCmd)
-	configCmd.Flags().String("token", "", "The session token found in the browser's network tab in the input page")
+	configCmd.Flags().StringP("token", "t", "", "The session token found in the browser's network tab in the input page")
 	configCmd.MarkFlagRequired("token")
+	configCmd.Flags().Int("year", getLatestAoCYear(), "The year of the AoC you want to do. Defaults to current year if in december or later, or to previous year otherwise.")
 	viper.BindPFlag("token", configCmd.Flags().Lookup("token"))
+	viper.BindPFlag("year", configCmd.Flags().Lookup("year"))
 }

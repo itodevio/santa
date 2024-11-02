@@ -92,7 +92,7 @@ func getLatestAoCYear() int {
 
 func init() {
 	rootCmd.AddCommand(initCmd)
-	initCmd.Flags().IntP("year", "y", getLatestAoCYear(), "The year of the AoC you want to do. Defaults to current year if in december or later, or to previous year otherwise.")
+	initCmd.Flags().Int("year", getLatestAoCYear(), "The year of the AoC you want to do. Defaults to current year if in december or later, or to previous year otherwise.")
 	initCmd.Flags().BoolVar(&forceNonEmpty, "force", false, "Whether should force the project init in a non empty directory.")
 	viper.BindPFlag("year", initCmd.Flags().Lookup("year"))
 }
