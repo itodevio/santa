@@ -1,8 +1,11 @@
 package cmd
 
 import (
+	"embed"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"path"
 	"strconv"
@@ -46,6 +49,8 @@ var (
 			return nil
 		},
 	}
+	//go:embed templates/*
+	templatesFS embed.FS
 )
 
 func newRun(cmd *cobra.Command, args []string) {
@@ -54,39 +59,72 @@ func newRun(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	dayDir := fmt.Sprintf("Day%s", formatDay(day))
-	err = os.Mkdir(dayDir, os.ModePerm)
+	dayPath := fmt.Sprintf("Day%s", formatDay(day))
+	err = os.Mkdir(dayPath, os.ModePerm)
 	if err != nil { // TODO: better error handling here
 		panic(err)
 	}
 
-	tmpl, err := template.ParseFiles("cmd/templates/go.tmpl")
+	tmpl, err := template.ParseFS(templatesFS, "templates/go.tmpl")
 	if err != nil { // TODO: better error handling here
 		panic(err)
 	}
 
-	part1, err := os.Create(path.Join(dayDir, "solution1.go"))
+	downloadInput(day, dayPath)
+	createSolutionFile(tmpl, dayPath, 1)
+	createSolutionFile(tmpl, dayPath, 2)
+}
+
+func createSolutionFile(tmpl *template.Template, dayPath string, part int) {
+	file, err := os.Create(path.Join(dayPath, fmt.Sprintf("solution%d.go", part)))
 	if err != nil { // TODO: better error handling here
 		panic(err)
 	}
-	defer part1.Close()
+	defer file.Close()
 
-	part2, err := os.Create(path.Join(dayDir, "solution2.go"))
-	if err != nil { // TODO: better error handling here
-		panic(err)
-	}
-	defer part2.Close()
-
-	err = tmpl.Execute(part1, nil)
+	err = tmpl.Execute(file, nil)
 	if err != nil {
 		panic(err)
 	}
-	err = tmpl.Execute(part2, nil)
+}
+
+func downloadInput(day int, dayPath string) {
+	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", viper.GetInt("year"), day)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		panic(err)
+		fmt.Println("Failed to create request:", err)
+		return
 	}
 
-	// req, err := http.Get("")
+	sessionCookie := &http.Cookie{
+		Name:  "session",
+		Value: viper.GetString("session"),
+	}
+
+	req.AddCookie(sessionCookie)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Failed to send request:", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	input, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Failed to read response:", err)
+		return
+	}
+
+	file, err := os.Create(fmt.Sprintf("%s/input.txt", dayPath))
+	if err != nil {
+		fmt.Println("Failed to create input file:", err)
+		return
+	}
+	defer file.Close()
+
+	file.Write(input)
 }
 
 func formatDay(day int) string {
