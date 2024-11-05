@@ -27,10 +27,10 @@ var (
 				panic(err)
 			}
 			if len(args) > 1 {
-				return errors.New("Too many arguments.")
+				return errors.New("too many arguments")
 			}
 			if !isValidYear(viper.GetInt("year")) {
-				return errors.New("Year config not valid. Run `santa config --year x` to set a valid AoC year.")
+				return errors.New("year config not valid. run `santa config --year x` to set a valid aoc year")
 			}
 
 			now := time.Now()
@@ -38,12 +38,12 @@ var (
 			day, err := getDay(args)
 			fmt.Println(viper.GetInt("year"), month, day)
 			if err != nil {
-				return errors.New("Invalid day argument.")
+				return errors.New("invalid day argument")
 			}
 
 			aocDate := time.Date(viper.GetInt("year"), time.Month(month), day, 0, 0, 0, 0, aocLocation)
 			if now.Before(aocDate) {
-				return errors.New("Day not yet available. Specify a different day in the argument or practice in the previous year!")
+				return errors.New("day not yet available. specify a different day in the argument or practice in the previous year")
 			}
 
 			return nil

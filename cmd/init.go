@@ -39,7 +39,7 @@ func validateArgs(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 	if len(args) > 1 {
-		return errors.New(fmt.Sprintf("Command init expected at most 1 argument and %d were given.", len(args)))
+		return fmt.Errorf("command init expected at most 1 argument and %d were given", len(args))
 	}
 
 	path := args[0]
@@ -49,18 +49,18 @@ func validateArgs(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 	if err != nil {
-		return errors.New("Failed to read path. " + err.Error())
+		return errors.New("failed to read path: " + err.Error())
 	}
 	if !info.IsDir() {
-		return errors.New("Target path is not a directory.")
+		return errors.New("target path is not a directory")
 	}
 
 	files, err := os.ReadDir(path)
 	if err != nil {
-		return errors.New("Failed to read path. " + err.Error())
+		return errors.New("failed to read path: " + err.Error())
 	}
 	if len(files) != 0 && !forceNonEmpty {
-		return errors.New("Directory is not empty. Run command with --force to ignore warning.")
+		return errors.New("directory is not empty. run command with --force to ignore warning")
 	}
 
 	ProjectPath = path

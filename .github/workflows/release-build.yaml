@@ -1,0 +1,51 @@
+name: Release Build
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Go
+      uses: actions/setup-go@v5
+    - name: Install dependencies
+      run: make deps
+    - name: Vet
+      run: make vet
+    - name: Static Check
+      run: make staticcheck
+    - name: Test
+      run: make test
+  
+  build:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Go
+      uses: actions/setup-go@v5
+    - name: Build binaries for multiple platforms
+      run: |
+        mkdir -p bin
+        GOOS=linux GOARCH=amd64 go build -o bin/linux/amd64/santa
+        GOOS=linux GOARCH=386 go build -o bin/linux/386/santa
+        GOOS=linux GOARCH=arm64 go build -o bin/linux/arm64/santa
+        GOOS=linux GOARCH=arm go build -o bin/linux/arm/santa
+        GOOS=darwin GOARCH=amd64 go build -o bin/darwin/amd64/santa
+        GOOS=darwin GOARCH=arm64 go build -o bin/darwin/arm64/santa
+        GOOS=windows GOARCH=amd64 go build -o bin/windows/amd64/santa.exe
+        GOOS=windows GOARCH=386 go build -o bin/windows/386/santa.exe
+        GOOS=windows GOARCH=arm64 go build -o bin/windows/arm64/santa.exe
+        GOOS=windows GOARCH=arm go build -o bin/windows/arm/santa.exe
+      env:
+        CGO_ENABLED: 0
+    - name: Upload binaries
+      uses: softprops/action-gh-release@v1
+      with:
+        tag: ${{ github.ref }}
+        files: bin/**/*
+
