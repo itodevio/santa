@@ -51,7 +51,7 @@ jobs:
     - name: Upload binaries
       uses: softprops/action-gh-release@v2
       with:
-        body_path: RELEASE.MD
+        body_path: RELEASE.md
         files: bin/**/*
         token: ${{ secrets.GH_TOKEN }}
 
