@@ -32,20 +32,20 @@ jobs:
       run: |
         make release-body
         mkdir -p bin
-        GOOS=linux GOARCH=amd64 go build -o bin/Linux/x86_64/santa
-        GOOS=linux GOARCH=386 go build -o bin/Linux/i386/santa
-        GOOS=linux GOARCH=arm go build -o bin/Linux/arm/santa
-        GOOS=linux GOARCH=arm GOARM=5 go build -o bin/Linux/armv5l/santa
-        GOOS=linux GOARCH=arm GOARM=6 go build -o bin/Linux/armv6l/santa
-        GOOS=linux GOARCH=arm GOARM=7 go build -o bin/Linux/armv7l/santa
-        GOOS=linux GOARCH=arm64 go build -o bin/Linux/armv8l/santa
-        GOOS=linux GOARCH=arm64 go build -o bin/Linux/arm64/santa
-        GOOS=darwin GOARCH=amd64 go build -o bin/Darwin/x86_64/santa
-        GOOS=darwin GOARCH=arm64 go build -o bin/Darwin/arm64/santa
-        GOOS=windows GOARCH=amd64 go build -o bin/Windows/amd64/santa.exe
-        GOOS=windows GOARCH=386 go build -o bin/Windows/386/santa.exe
-        GOOS=windows GOARCH=arm64 go build -o bin/Windows/arm64/santa.exe
-        GOOS=windows GOARCH=arm go build -o bin/Windows/arm/santa.exe
+        GOOS=linux GOARCH=amd64 go build -o bin/santa-Linux-x86_64
+        GOOS=linux GOARCH=386 go build -o bin/santa-Linux-i386
+        GOOS=linux GOARCH=arm go build -o bin/santa-Linux-arm
+        GOOS=linux GOARCH=arm GOARM=5 go build -o bin/santa-Linux-armv5l
+        GOOS=linux GOARCH=arm GOARM=6 go build -o bin/santa-Linux-armv6l
+        GOOS=linux GOARCH=arm GOARM=7 go build -o bin/santa-Linux-armv7l
+        GOOS=linux GOARCH=arm64 go build -o bin/santa-Linux-armv8l
+        GOOS=linux GOARCH=arm64 go build -o bin/santa-Linux-arm64
+        GOOS=darwin GOARCH=amd64 go build -o bin/santa-Darwin-x86_64
+        GOOS=darwin GOARCH=arm64 go build -o bin/santa-Darwin-arm64
+        GOOS=windows GOARCH=amd64 go build -o bin/santa-Windows-amd64.exe
+        GOOS=windows GOARCH=386 go build -o bin/santa-Windows-386.exe
+        GOOS=windows GOARCH=arm64 go build -o bin/santa-Windows-arm64.exe
+        GOOS=windows GOARCH=arm go build -o bin/santa-Windows-arm.exe
       env:
         CGO_ENABLED: 0
     - name: Upload binaries
