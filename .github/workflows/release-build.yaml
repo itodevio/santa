@@ -49,7 +49,7 @@ jobs:
       env:
         CGO_ENABLED: 0
     - name: Upload binaries
-      uses: softprops/actions-gh-release@v2
+      uses: softprops/action-gh-release@v2
       with:
         body_path: RELEASE.MD
         files: bin/**/*
