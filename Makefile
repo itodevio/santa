@@ -18,9 +18,9 @@ For Windows users, you can download the executable depending on your architectur
 
 | OS      | Architecture   | Download Link
 |---------|----------------|----------------------------------
-| Windows | amd64 (64-bit) | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/Windows/amd64/santa.exe)
-| Windows | arm64 (64-bit) | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/Windows/arm64/santa.exe)
-| Windows | 386 (32-bit)   | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/Windows/i386/santa.exe)
+| Windows | amd64 (64-bit) | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/santa-amd64-Windows.exe
+| Windows | arm64 (64-bit) | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/santa-arm64-Windows.exe
+| Windows | 386 (32-bit)   | [Download](https://github.com/itodevio/santa/releases/download/${VERSION}/santa-i386-Windows.exe
 ---
 
 *If unsure, you can usually download the `amd64` version, as it is widely compatible with most systems.
