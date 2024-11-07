@@ -30,7 +30,7 @@ jobs:
       uses: actions/setup-go@v5
     - name: Build binaries for multiple platforms
       run: |
-        make release-body
+        VERSION=${GITHUB_REF_NAME} make release-body
         mkdir -p bin
         GOOS=linux GOARCH=amd64 go build -o bin/santa-Linux-x86_64
         GOOS=linux GOARCH=386 go build -o bin/santa-Linux-i386
