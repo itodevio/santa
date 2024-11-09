@@ -8,7 +8,7 @@ See [README.md](https://github.com/itodevio/santa/blob/${VERSION}/README.md) for
 For Linux or macOS users, you can quickly install and run Santa CLI using the following command:
 
 ```bash
-curl -L https://github.com/itodevio/santa/releases/download/${VERSION}/`uname -s`/`uname -m`/santa -o /usr/local/bin/santa
+curl -L https://github.com/itodevio/santa/releases/download/${VERSION}/santa-`uname -s`-`uname -m` -o /usr/local/bin/santa
 chmod +x /usr/local/bin/santa
 ```
 
