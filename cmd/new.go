@@ -65,18 +65,27 @@ func newRun(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	tmpl, err := template.ParseFS(templatesFS, "templates/go.tmpl")
+	mainTmpl, err := template.ParseFS(templatesFS, "templates/go/main.tmpl")
+	if err != nil { // TODO: better error handling here
+		panic(err)
+	}
+	part1Tmpl, err := template.ParseFS(templatesFS, "templates/go/part1.tmpl")
+	if err != nil { // TODO: better error handling here
+		panic(err)
+	}
+	part2Tmpl, err := template.ParseFS(templatesFS, "templates/go/part2.tmpl")
 	if err != nil { // TODO: better error handling here
 		panic(err)
 	}
 
 	downloadInput(day, dayPath)
-	createSolutionFile(tmpl, dayPath, 1)
-	createSolutionFile(tmpl, dayPath, 2)
+	createTemplateFile(mainTmpl, dayPath, "main.go")
+	createTemplateFile(part1Tmpl, dayPath, "part1.go")
+	createTemplateFile(part2Tmpl, dayPath, "part2.go")
 }
 
-func createSolutionFile(tmpl *template.Template, dayPath string, part int) {
-	file, err := os.Create(path.Join(dayPath, fmt.Sprintf("solution%d.go", part)))
+func createTemplateFile(tmpl *template.Template, dayPath string, filename string) {
+	file, err := os.Create(path.Join(dayPath, filename))
 	if err != nil { // TODO: better error handling here
 		panic(err)
 	}
