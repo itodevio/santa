@@ -83,7 +83,7 @@ func isValidYear(year int) bool {
 
 func getLatestAoCYear() int {
 	now := time.Now()
-	if now.Month() == 12 {
+	if now.Month() == time.December {
 		return now.Year()
 	}
 
