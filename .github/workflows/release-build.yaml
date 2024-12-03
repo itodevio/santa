@@ -32,7 +32,11 @@ jobs:
         go-version: 1.22.4
     - name: Build binaries for multiple platforms
       run: |
-        VERSION=${GITHUB_REF_NAME} make release-body
+        VERSION=${GITHUB_REF_NAME}
+        GOBUILD='go build -ldflags "-X github.com/itodevio/santa/cmd.Version-${VERSION}"'
+        echo $VERSION
+        echo $GOBUILD
+        make release-body
         mkdir -p bin
         GOOS=linux GOARCH=amd64 go build -o bin/santa-Linux-x86_64
         GOOS=linux GOARCH=386 go build -o bin/santa-Linux-i386
