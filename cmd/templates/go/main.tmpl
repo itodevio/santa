@@ -31,3 +31,10 @@ func ReadInput() string {
 
 	return string(file)
 }
+
+func Must[T any](obj T, err error) T {
+  if err != nil {
+    panic(err)
+  }
+  return obj
+}
