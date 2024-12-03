@@ -33,7 +33,7 @@ jobs:
     - name: Build binaries for multiple platforms
       run: |
         VERSION=${GITHUB_REF_NAME}
-        GOBUILD="go build -ldflags \"-X github.com/itodevio/santa/cmd.Version-${VERSION}\""
+        GOBUILD="go build -ldflags \"-X github.com/itodevio/santa/cmd.Version=${VERSION}\""
         make release-body
         mkdir -p bin
         GOOS=linux GOARCH=amd64 ${GOBUILD} -o bin/santa-Linux-x86_64
