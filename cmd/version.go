@@ -14,6 +14,6 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print santa's version",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(Version)
+		fmt.Println(rootCmd.VersionTemplate())
 	},
 }
