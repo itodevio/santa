@@ -12,9 +12,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "santa",
-	Short: "Santa is an utility tool for Advent of Code problems",
-	Long:  "Santa is an utility tool for Advent of Code problems built with love by itodevio in Go",
+	Use:     "santa",
+	Short:   "Santa is an utility tool for Advent of Code problems",
+	Long:    "Santa is an utility tool for Advent of Code problems built with love by itodevio in Go",
+	Version: Version,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		err := viper.ReadInConfig()
 		if err != nil && cmd.Name() != "config" {
@@ -33,6 +34,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+	rootCmd.SetVersionTemplate(fmt.Sprintln("Santa", Version, "\nhttps://github.com/itodevio/santa/releases/tag/"+Version))
 }
 
 func initConfig() {
