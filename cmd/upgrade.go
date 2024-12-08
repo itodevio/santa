@@ -132,6 +132,7 @@ func upgradeRun(cmd *cobra.Command, args []string) {
 	current := version.Must(version.NewVersion(Version))
 	if !current.LessThan(latest) {
 		fmt.Println("You are already using the latest version!")
+		return
 	}
 
 	fmt.Printf("There's a new version available.\nCurrent: %s\nLatest: %s\n", current.String(), latest.String())
