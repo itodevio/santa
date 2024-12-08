@@ -108,7 +108,7 @@ func getDownloadURL(version string) (string, error) {
 	}
 
 	if !slices.Contains(supportedByOS[os], arch) {
-		return "", fmt.Errorf("Unsupported OS/ARCH: %s/%s", os, arch)
+		return "", fmt.Errorf("unsupported OS/ARCH: %s/%s", os, arch)
 	}
 
 	caser := cases.Title(language.English)
@@ -203,7 +203,7 @@ func upgradeRun(cmd *cobra.Command, args []string) {
 	client := &http.Client{}
 	response, err := client.Do(request)
 	if response.StatusCode != 200 {
-		err = fmt.Errorf("Failed to download binary from GitHub. HTTP Status: %d", response.StatusCode)
+		err = fmt.Errorf("failed to download binary from GitHub. HTTP Status: %d", response.StatusCode)
 	}
 	if err != nil {
 		fmt.Println("Failed to upgrade santa:", err)
