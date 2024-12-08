@@ -36,7 +36,7 @@ jobs:
         LDFLAGS="-X github.com/itodevio/santa/cmd.Version=${VERSION}"
         echo $VERSION
         echo $LDFLAGS
-        make release-body
+        VERSION=${GITHUB_REF_NAME} make release-body
         mkdir -p bin
         GOOS=linux GOARCH=amd64 go build -ldflags "${LDFLAGS}" -o bin/santa-Linux-x86_64
         GOOS=linux GOARCH=386 go build -ldflags "${LDFLAGS}" -o bin/santa-Linux-i386
