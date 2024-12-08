@@ -177,6 +177,10 @@ func upgradeRun(cmd *cobra.Command, args []string) {
 
 	newFile, err := os.Create(newFilePath)
 	if err != nil {
+		if strings.Contains(strings.ToLower(err.Error()), "permission denied") {
+			fmt.Println("Permission denied. Try running the command with 'sudo'.")
+			return
+		}
 		fmt.Println("Failed to create new file:", err)
 		return
 	}
