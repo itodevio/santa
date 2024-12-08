@@ -34,6 +34,8 @@ jobs:
       run: |
         VERSION=${GITHUB_REF_NAME}
         LDFLAGS="-X github.com/itodevio/santa/cmd.Version=${VERSION}"
+        echo $VERSION
+        echo $LDFLAGS
         make release-body
         mkdir -p bin
         GOOS=linux GOARCH=amd64 go build -ldflags "${LDFLAGS}" -o bin/santa-Linux-x86_64

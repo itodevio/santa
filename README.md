@@ -12,23 +12,32 @@ Santa is a easy to use tool to help setup and generate a little bit of boilerpla
 
 ## Roadmap
 
-upgrade
-  - [ ] automatically upgrade Santa.
+command: upgrade
+  - [x] automatically upgrade Santa.
 
-config
+command: config
   - [x] store session (--session <session>)
   - [ ] switch between global and local configs
 
-init
+command: init
   - [x] choose year (--year <year>)
   - [x] force init on non-empty directory (--force)
   - [ ] automatically identify if target path is already a Santa project
 
-new
- - [x] choose day (--day <day>)
+command: new
+ - [x] create day folder with boilerplate code and input (--day <day>)
+ - [ ] add test input and flag to run the code against it
  - [ ] choose programming language
-     - [ ] Go
-     - [ ] Javascript
-     - [ ] Typescript (may require bun or deno?)
-     - [ ] Python
  - [ ] run solutions against input (directly on the aoc endpoints?)
+
+command: input
+ - [ ] download input for specific day in current folder
+ - [ ] prompt the user if they currently are in a santa day folder (then download this day input instead of requiring a flag)
+ - [ ] download test input for specific day in current folder
+
+languages:
+ - [x] Go
+ - [ ] Javascript
+ - [ ] Typescript (may require bun or deno?)
+ - [ ] Python
+ - [ ] Zig
